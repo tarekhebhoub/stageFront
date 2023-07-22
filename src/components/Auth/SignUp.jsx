@@ -26,11 +26,14 @@ const defaultTheme = createTheme();
 const SignUp=()=>{
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const formData = new FormData(event.target);
+    let data={}
+    for (let [key, value] of formData.entries()) { 
+      if(key!='Structure'){
+        data[key]=value
+      }
+    }
+    console.log(data)
   };
 
   return (
@@ -56,7 +59,7 @@ const SignUp=()=>{
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="Nom"
                   required
                   fullWidth
                   id="firstName"
@@ -64,27 +67,28 @@ const SignUp=()=>{
                   autoFocus
                 />
               </Grid>
-             
               <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
                   id="lastName"
                   label="Prenom"
-                  name="lastName"
+                  name="Prenom"
                   autoComplete="family-name"
+                  
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer components={['DateField']}>
                     <DateField 
                       id='dateBirth'
                       label="Date de naissance" 
                       format="YYYY-MM-DD"
+                      name="Date_Naiss"
+                      fullWidth
                       //value={dateBirth}
-                     /* value={dayjs(dateBirth)}
-                      onChange={(e)=>{setDataBirth(e)}}*/
+                      
                       />
                   </DemoContainer>
                 </LocalizationProvider>
@@ -93,15 +97,51 @@ const SignUp=()=>{
                 <TextField
                   required
                   id="phone"
-                  name="phone"
+                  name="Telephone"
                   label="Phone Number"
                   fullWidth
                   autoComplete="Téléphone/ Fax"
-                  variant="standard"
-                  /*value={phone}
-                  onChange={(e)=> setPhone(e.target.value)}*/
+                 
                 />
               </Grid>
+               <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="posteActuel"
+                  label="Poste actuel"
+                  name="Poste_actuel"
+                  autoComplete="posteActuel"
+                 
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="given-Structure"
+                  name="Structure"
+                  required
+                  fullWidth
+                  id="structure"
+                  label="Structure"
+                  autoFocus
+                  
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="given-Echelle"
+                  name="Id_dep"
+                  required
+                  fullWidth
+                  id="echelle"
+                  label="Echelle"
+                  autoFocus
+                 
+                />
+              </Grid>
+              
+
               <Grid item xs={12}>
                 <TextField
                   required
@@ -110,26 +150,29 @@ const SignUp=()=>{
                   label="Nom D'utilisateur"
                   name="username"
                   autoComplete="username"
+                 
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="email"
+                  id="emailPers"
                   label="Adresse personnelle"
-                  name="email"
+                  name="Adresse_perso"
                   autoComplete="email"
+                  
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="email"
+                  id="emailProf"
                   label="Adresse professionnelle"
-                  name="email"
+                  name="Adresse_prof"
                   autoComplete="email"
+                  
                 />
               </Grid>
               <Grid item xs={12}>
@@ -141,9 +184,24 @@ const SignUp=()=>{
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  
                 />
               </Grid>
-              
+              <Grid item xs={12}>
+                <Button
+                  variant="contained"
+                  component="label"
+                >
+                  Upload Photo
+                  <input
+                    type="file"
+                    hidden
+                    id="Photo"
+                    name="Photo"
+                    required
+                  />
+                </Button>
+              </Grid>
             </Grid>
             <Button
               type="submit"
