@@ -14,8 +14,10 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MainListItems from './listItems';
 import { AppContent } from '../components/index'
-
-
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
 const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
@@ -66,10 +68,28 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 const DefaultLayout=()=> {
+  const navigate = useNavigate();
 
   const token = localStorage.getItem('token');
+  const api_url='http://127.0.0.1:8000/logout/'
+  const handleLogout=()=>{
+    console.log('ibrahim')
+    const config = {
+      headers: {
+        "Authorization": `Token ${token}`
+      }
+    };
+    axios.post(api_url,null,config)
+    .then((res)=> {
   
-
+      localStorage.setItem("token", undefined);
+      
+      window.location.reload();
+    })
+    .catch((e)=>{
+      console.log(e)
+    })
+  }
 
   const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
@@ -107,11 +127,16 @@ const DefaultLayout=()=> {
             >
               Bourse D' Emploi
             </Typography>
-            <IconButton color="inherit">
-             
+            
+            <ListItemButton sx={6} onClick={()=>handleLogout()}>
+                <LogoutIcon />
+            </ListItemButton>
+
+            {/* <IconButton color="inherit">
+                  
                 <LogoutIcon />
              
-            </IconButton>
+            </IconButton> */}
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>

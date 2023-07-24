@@ -12,7 +12,13 @@ const Login = React.lazy(()=>import('./components/Auth/Login'))
 // const Page500 = React.lazy(() => import('./views/pages/page500/Page500'))
 class App extends Component {
   render() {
-    const isAuthenticated=false;
+    const token = localStorage.getItem('token');
+    let isAuthenticated=false;
+    console.log(token)
+     if(token!='undefined'){
+       isAuthenticated=true;
+     }
+    
     console.log("tarek")
     return (
       <HashRouter>

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useState,useEffect} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,26 +15,112 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateField } from '@mui/x-date-pickers/DateField';
+import Autocomplete from '@mui/material/Autocomplete';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-
+import axios from 'axios'
 import dayjs from 'dayjs';
-
+import { useNavigate } from 'react-router-dom';
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
 const SignUp=()=>{
+  const navigate = useNavigate();
+  const [structure,setStrucutre]=useState([])
+  const [departement,setDepartement]=useState([])
+
+  const [departementId,setDepartementId]=useState([])
+  const [structureId,setStructureId]=useState([])
+
+  // const url=process.env.REACT_APP_URL
+  const url='http://127.0.0.1:8000/'
+  console.log(url)
+  const getStructure=()=>{
+    const config = {
+      headers: {
+        //'Authorization': `Token ${token}`,
+      }
+    }
+    axios.get(url+'structure/')
+      .then((res) => {
+      const data = res.data
+      console.log(data)
+      setStrucutre(data)
+    })
+    .catch((e) => {
+      console.log(url)
+    });
+  }
+  useEffect(()=>{
+    getStructure();
+  },[])
+
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     let data={}
+    let form_data = new FormData();
     for (let [key, value] of formData.entries()) { 
-      if(key!='Structure'){
-        data[key]=value
+      if(key=='Structure'){
+        form_data.append('Id_struc',structureId);
+      }else if(key=='Departement'){
+        form_data.append('Id_dep',departementId);
+      }
+      else{
+        form_data.append(key,value);
+      }
+
+      
+      }
+    
+    console.log(form_data)
+    const config = {
+      headers: {
+        //'Authorization': `Token ${token}`,
+       "Content-Type": "multipart/form-data"
       }
     }
-    console.log(data)
+    axios.post(url+'sign-up/',form_data)
+      .then((res) => {
+        console.log(res)
+        localStorage.setItem('token',res.data.token)
+        window.location.reload();
+
+    })
+    .catch((e) => {
+      console.log(url)
+    });
   };
+
+
+  const getDepartement=(str)=> {
+    setStructureId(str)
+
+    const config = {
+      headers: {
+        //'Authorization': `Token ${token}`,
+        "Content-Type": "multipart/form-data",
+      }
+    }
+    axios.get(url+'structure/'+str+'/')
+      .then((res) => {
+      const data = res.data
+      console.log(data)
+      setDepartement(data)
+    })
+    .catch((e) => {
+      console.log(url)
+    });
+  }
+
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedImage(file);
+  };
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -59,7 +145,7 @@ const SignUp=()=>{
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="Nom"
+                  name="first_name"
                   required
                   fullWidth
                   id="firstName"
@@ -73,7 +159,7 @@ const SignUp=()=>{
                   fullWidth
                   id="lastName"
                   label="Prenom"
-                  name="Prenom"
+                  name="last_name"
                   autoComplete="family-name"
                   
                 />
@@ -93,21 +179,21 @@ const SignUp=()=>{
                   </DemoContainer>
                 </LocalizationProvider>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} >
                 <TextField
                   required
                   id="phone"
                   name="Telephone"
-                  label="Phone Number"
+                  label="Telephone"
                   fullWidth
                   autoComplete="Téléphone/ Fax"
                  
                 />
               </Grid>
-               <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   required
-                  fullWidth
+                  
                   id="posteActuel"
                   label="Poste actuel"
                   name="Poste_actuel"
@@ -117,28 +203,55 @@ const SignUp=()=>{
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  autoComplete="given-Structure"
-                  name="Structure"
                   required
-                  fullWidth
-                  id="structure"
-                  label="Structure"
-                  autoFocus
                   
+                  id="Echelle"
+                  label="Echelle"
+                  name="Echelle"
+                  autoComplete="Echelle"
                 />
+              </Grid>
+              <Grid item xs={12}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={['DateField']}>
+                    <DateField 
+                      id='dateBirth'
+                      label="Date de Recrutement" 
+                      format="YYYY-MM-DD"
+                      name="Date_Recrut"
+                      fullWidth
+                      //value={dateBirth}
+                      
+                      />
+                  </DemoContainer>
+                </LocalizationProvider>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+              <Autocomplete
+                disablePortal
+                id="Structure"
+                name="Structure"
+               
+                options={structure}
+                getOptionLabel={(option) => option.Nom_struc} // Specify how to display the label in the Autocomplete dropdown
+                onChange={(e, selectedOption) => { getDepartement(selectedOption?.id) }}
+                // sx={{ width: 300 }}
+                renderInput={(params) => <TextField {...params} label="Structure" />}
+              />
               </Grid>
 
               <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-Echelle"
-                  name="Id_dep"
-                  required
-                  fullWidth
-                  id="echelle"
-                  label="Echelle"
-                  autoFocus
-                 
-                />
+              <Autocomplete
+                disablePortal
+                id="Id_dep"
+                
+                name="Departement"
+                options={departement}
+                getOptionLabel={(option) => option.Nom_dep} // Specify how to display the label in the Autocomplete dropdown
+                 onChange={(e, selectedOption) => { setDepartementId(selectedOption?.id) }}
+                // sx={{ width: 300 }}
+                renderInput={(params) => <TextField {...params} label="Departement" />}
+              />
               </Grid>
               
 
@@ -146,6 +259,7 @@ const SignUp=()=>{
                 <TextField
                   required
                   fullWidth
+
                   id="username"
                   label="Nom D'utilisateur"
                   name="username"
@@ -170,7 +284,7 @@ const SignUp=()=>{
                   fullWidth
                   id="emailProf"
                   label="Adresse professionnelle"
-                  name="Adresse_prof"
+                  name="email"
                   autoComplete="email"
                   
                 />
@@ -192,10 +306,11 @@ const SignUp=()=>{
                   variant="contained"
                   component="label"
                 >
-                  Upload Photo
+                  Ajouter votre Photo
                   <input
                     type="file"
                     hidden
+                    onChange={handleImageChange}
                     id="Photo"
                     name="Photo"
                     required
