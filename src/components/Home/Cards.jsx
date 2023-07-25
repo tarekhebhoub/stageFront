@@ -5,10 +5,24 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router-dom';
 
 
 
-const BasicCard=({Diraction,Departement,PostFilier,nbrPost})=> {
+
+const BasicCard=({Diraction,Departement,PostFilier,nbrPost,offre})=> {
+  const url='http://127.0.0.1:8000/'
+  const navigate = useNavigate();
+  const handleClick=()=>{
+    navigate('/OffreDetail')
+  }
+  const handleInfo=()=>{
+     window.open(url+'fichier/2/FichierB/'); 
+  }
+  const handleFichier=()=>{
+
+    navigate('/FichierForm')
+  }
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -28,8 +42,14 @@ const BasicCard=({Diraction,Departement,PostFilier,nbrPost})=> {
          Nombre de poste: {nbrPost}
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Voir plus</Button>
+      <CardActions> 
+        {!offre?<Button size="small" onClick={handleClick}>Voir plus</Button>:(
+          <div>
+            <Button size="small" onClick={handleInfo}>Exigences</Button>
+            <Button size="small" onClick={handleFichier}>Inscrire</Button>
+          </div>
+          )
+        }
       </CardActions>
     </Card>
   );

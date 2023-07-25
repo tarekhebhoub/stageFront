@@ -15,7 +15,7 @@ class App extends Component {
     const token = localStorage.getItem('token');
     let isAuthenticated=false;
     console.log(token)
-     if(token!='undefined'){
+     if(token!='null'){
        isAuthenticated=true;
      }
     

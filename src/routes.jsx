@@ -7,6 +7,8 @@ const Fichier = React.lazy(()=>import('./components/Fichier/Fichier'))
 const EtatFichier = React.lazy(()=>import('./components/Fichier/EtatFichier'))
 const SignUp = React.lazy(()=>import('./components/Auth/SignUp'))
 const Login = React.lazy(()=>import('./components/Auth/Login'))
+const OffreDetail=React.lazy(()=>import('./components/Home/OffreDetail'))
+const FichierForm=React.lazy(()=>import('./components/Fichier/FichierForm/FichierForm'))
 // const Facture = React.lazy(()=>import('./components/Orders/Facture/Facture'))
 // const Dashboard=React.lazy(()=>import('./components/Dashboard/Dashboard'))
 // const Stock=React.lazy(()=>import('./components/Stock/Stock'))
@@ -22,9 +24,12 @@ const routes = [
 */
     { path: '/', name: 'Home', element: Home },
     {path:'/Fichier',name:'Fichier', element:Fichier},
+    {path:'/FichierForm',name:'FichierForm', element:FichierForm},
     {path:'/EtatFichier',name:'EtatFichier', element:EtatFichier},
     { path: '/SignUp', name: 'SignUp', element: SignUp },
     {path:'/Login',name:'Login',element:Login},
+    {path:'/OffreDetail',name:'OffreDetail',element:OffreDetail},
+
 /*  { path: '/users', name: 'users', element: Users },
   { path: '/velos', name: 'velos', element: Velos },
   { path: '/cards', name: 'cards', element: Cards },

@@ -82,7 +82,7 @@ const DefaultLayout=()=> {
     axios.post(api_url,null,config)
     .then((res)=> {
   
-      localStorage.setItem("token", undefined);
+      localStorage.setItem("token", null);
       
       window.location.reload();
     })
@@ -128,7 +128,7 @@ const DefaultLayout=()=> {
               Bourse D' Emploi
             </Typography>
             
-            <ListItemButton sx={6} onClick={()=>handleLogout()}>
+            <ListItemButton  onClick={()=>handleLogout()}>
                 <LogoutIcon />
             </ListItemButton>
 
