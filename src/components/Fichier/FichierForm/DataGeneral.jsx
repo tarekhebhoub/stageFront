@@ -5,104 +5,79 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
-const DataGeneral=()=>{
+const DataGeneral=({PourPoste,SetRaPourPoste,Raison_recrut,SetRaison_recrut,Specialite,SetSpecialite,formation_comp,Setformation_comp,seminaire,Setseminaire})=>{
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Shipping address
+        Informations Generales/Formation
       </Typography>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} >
           <TextField
             required
-            id="firstName"
-            name="firstName"
-            label="First name"
+            id="PourPoste"
+            name="PourPoste"
+            label="Condidat pour le poste de:"
             fullWidth
             autoComplete="given-name"
             variant="standard"
+            value={PourPoste}
+            onChange={(e)=> SetRaPourPoste(e.target.value)}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} >
           <TextField
             required
-            id="lastName"
-            name="lastName"
-            label="Last name"
+            id="Raison_recrut"
+            name="Raison_recrut"
+            label="Raison qui vous incitent à vous porter candidat:"
             fullWidth
             autoComplete="family-name"
             variant="standard"
+            value={Raison_recrut}
+            onChange={(e)=> SetRaison_recrut(e.target.value)}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
             required
-            id="address1"
-            name="address1"
-            label="Address line 1"
+            id="Specialite"
+            name="Specialite"
+            label="formation de base:"
             fullWidth
             autoComplete="shipping address-line1"
             variant="standard"
+            value={Specialite}
+            onChange={(e)=> SetSpecialite(e.target.value)}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
-            id="address2"
-            name="address2"
-            label="Address line 2"
+            id="formation_comp"
+            name="formation_comp"
+            label="Formation complémentaires"
             fullWidth
             autoComplete="shipping address-line2"
             variant="standard"
+            value={formation_comp}
+            onChange={(e)=> Setformation_comp(e.target.value)}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} >
           <TextField
             required
-            id="city"
-            name="city"
-            label="City"
+            id="seminaire"
+            name="seminaire"
+            label="Séminaires et stages"
             fullWidth
-            autoComplete="shipping address-level2"
+            autoComplete="seminaire"
             variant="standard"
+            value={seminaire}
+            onChange={(e)=> Setseminaire(e.target.value)}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            id="state"
-            name="state"
-            label="State/Province/Region"
-            fullWidth
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="zip"
-            name="zip"
-            label="Zip / Postal code"
-            fullWidth
-            autoComplete="shipping postal-code"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="country"
-            name="country"
-            label="Country"
-            fullWidth
-            autoComplete="shipping country"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-            label="Use this address for payment details"
-          />
-        </Grid>
+       
+     
       </Grid>
     </React.Fragment>
   );

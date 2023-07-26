@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useState} from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography';
 import DataGeneral from './DataGeneral';
 import OtherData from './OtherData';
 import Review from './Review';
-
+import axios from 'axios'
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -25,25 +25,74 @@ function Copyright(props) {
     </Typography>
   );
 }
-const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <DataGeneral/>;
-    case 1:
-      return <OtherData />;
-    case 2:
-      return <Review />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
 
 const FichierForm=()=> {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
 
+  const [PourPoste,SetRaPourPoste]=useState('')
+  const [Raison_recrut,SetRaison_recrut]=useState('')
+  const [Specialite,SetSpecialite]=useState('')
+  const [formation_comp,Setformation_comp]=useState('')
+  const [seminaire,Setseminaire]=useState('')
+
+  const url='http://127.0.0.1:8000/';
+  const token=localStorage.getItem('token')
+
+  const steps = ['Informations Generales', 'Parcours Professionnel', 'Review your order'];
+
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <DataGeneral 
+          PourPoste={PourPoste} 
+          Raison_recrut={Raison_recrut} 
+          Specialite={Specialite} 
+          formation_comp={formation_comp} 
+          seminaire={seminaire}
+          SetRaPourPoste={SetRaPourPoste}
+          SetRaison_recrut={SetRaison_recrut}
+          SetSpecialite={SetSpecialite}
+          Setformation_comp={Setformation_comp}
+          Setseminaire={Setseminaire}
+          />;
+      case 1:
+        return <OtherData />;
+      case 2:
+        return <Review />;
+      default:
+        throw new Error('Unknown step');
+    }
+  }
+
+  const PostDataGenerale=()=>{
+    const dataGeneral={
+      'PourPoste':PourPoste,
+      'Raison_recrut':Raison_recrut,
+      'Specialite':Specialite,
+      'formation_comp':formation_comp,
+      'seminaire':seminaire,
+      
+    }
+    const config = {
+      headers: {
+        'Authorization': `Token ${token}`,
+      }
+    }
+    axios.post(url+'fichier/',dataGeneral,config)
+      .then((res) => {
+      const data = res.data
+      console.log(data)
+    })
+    .catch((e) => {
+      console.log(url)
+    });
+  }
   const handleNext = () => {
+
+    if(activeStep==0){
+      PostDataGenerale()
+    }
     setActiveStep(activeStep + 1);
   };
 

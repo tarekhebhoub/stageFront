@@ -125,7 +125,7 @@ const DefaultLayout=()=> {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Bourse D' Emploi
+              ACTIVITE TRANSPORT PAR CANALISATIONS
             </Typography>
             
             <ListItemButton  onClick={()=>handleLogout()}>
