@@ -15,6 +15,9 @@ import DataGeneral from './DataGeneral';
 import OtherData from './OtherData';
 import Review from './Review';
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
+
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -29,17 +32,20 @@ function Copyright(props) {
 
 const FichierForm=()=> {
   const [activeStep, setActiveStep] = useState(0);
-
+  const [dataGeneralRes,setDataGeneralRes]=useState(null)
+  const navigate = useNavigate();
   const [PourPoste,SetRaPourPoste]=useState('')
   const [Raison_recrut,SetRaison_recrut]=useState('')
   const [Specialite,SetSpecialite]=useState('')
   const [formation_comp,Setformation_comp]=useState('')
   const [seminaire,Setseminaire]=useState('')
 
+
+
   const url='http://127.0.0.1:8000/';
   const token=localStorage.getItem('token')
 
-  const steps = ['Informations Generales', 'Parcours Professionnel', 'Review your order'];
+  const steps = ['Informations Generales', 'Parcours Professionnel'];
 
   function getStepContent(step) {
     switch (step) {
@@ -82,7 +88,34 @@ const FichierForm=()=> {
     axios.post(url+'fichier/',dataGeneral,config)
       .then((res) => {
       const data = res.data
-      console.log(data)
+      setDataGeneralRes(data)
+      console.log(dataGeneralRes)
+      setActiveStep(activeStep + 1);
+    })
+    .catch((e) => {
+      console.log(url)
+    });
+  }
+  const PutDataGenerale=(id)=>{
+    const dataGeneral={
+      'PourPoste':PourPoste,
+      'Raison_recrut':Raison_recrut,
+      'Specialite':Specialite,
+      'formation_comp':formation_comp,
+      'seminaire':seminaire,
+      
+    }
+    const config = {
+      headers: {
+        'Authorization': `Token ${token}`,
+      }
+    }
+    axios.put(url+'fichier/'+id+'/',dataGeneral,config)
+      .then((res) => {
+      const data = res.data
+      setDataGeneralRes(data)
+      console.log(dataGeneralRes)
+      setActiveStep(activeStep + 1);
     })
     .catch((e) => {
       console.log(url)
@@ -91,9 +124,16 @@ const FichierForm=()=> {
   const handleNext = () => {
 
     if(activeStep==0){
-      PostDataGenerale()
+      if(dataGeneralRes){
+        PutDataGenerale(dataGeneralRes.id)
+      }else{
+        PostDataGenerale()  
+      }
+    }else{
+      navigate('/ProfileSubmit')
     }
-    setActiveStep(activeStep + 1);
+
+    
   };
 
   const handleBack = () => {
@@ -156,7 +196,7 @@ const FichierForm=()=> {
                   onClick={handleNext}
                   sx={{ mt: 3, ml: 1 }}
                 >
-                  {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                  Next
                 </Button>
               </Box>
             </React.Fragment>

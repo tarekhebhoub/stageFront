@@ -28,17 +28,18 @@ import CreateNewAccountModal from './CreateNewAccountModal'
 
 
 const OtherData=()=>{
+  const token=localStorage.getItem('token')
 
-  const [data,setData]=useState([])
+  const [data,setData]=useState('')
   const url='http://127.0.0.1:8000/'
   const UpdateRow=(value,row,exitEditingMode)=>{
     const config = {
       headers: {
-        //'Authorization': `Token ${token}`,
+        'Authorization': `Token ${token}`,
       }
     }
     let resultat;
-    axios.put(url+'stock/'+value.id+'/',value)
+    axios.put(url+'parcoursprof/'+value.id+'/',value,config)
     .then((res) => {
       data[row.index] = value;
       console.log("tarek")
@@ -55,7 +56,19 @@ const OtherData=()=>{
   
 
   const GetParcProf=()=>{
-
+    const config = {
+      headers: {
+        'Authorization': `Token ${token}`,
+      }
+    }
+    let resultat;
+    axios.get(url+'parcoursprof/',config)
+    .then((res) => {
+      setData(res.data);
+    })
+    .catch((e) => {
+      alert(e)
+    });
   }
   useEffect(()=>{
     GetParcProf();
@@ -68,11 +81,11 @@ const OtherData=()=>{
   const deleteParcProf=(ref,index)=>{
     const config = {
       headers: {
-        //'Authorization': `Token ${token}`,
+        'Authorization': `Token ${token}`,
       }
     }
     let resultat;
-    axios.delete(url+'stock/'+ref+'/')
+    axios.delete(url+'parcoursprof/'+ref+'/',config)
       .then((res) => {
         resultat= true
         data.splice(index, 1);
@@ -89,21 +102,20 @@ const OtherData=()=>{
   const [tableData, setTableData] = useState(() => data);
   const [validationErrors, setValidationErrors] = useState({});
 
-
   const handleCreateNewRow = (values) => {
     const config = {
       headers: {
-        //'Authorization': `Token ${token}`,
+        'Authorization': `Token ${token}`,
       }
     }
-    /*axios.post(url+'stock/',values)
+    axios.post(url+'parcoursprof/',values,config)
       .then((res) => {
-        data.unshift(values)
+        data.unshift(res.data)
         setData([...data])
     })
     .catch((e) => {
       alert(e)
-    });*/
+    });
     console.log(values)
 
   };
@@ -122,7 +134,7 @@ const OtherData=()=>{
     (row) => {
       const id=row.getValue('id')
       if (
-        !window.confirm(`Are you sure you want to delete ${row.getValue('product')}`)
+        !window.confirm(`Are you sure you want to delete ${row.getValue('Poste_occup')}`)
       ) {
         return;
       }
@@ -249,7 +261,7 @@ const OtherData=()=>{
       // enableRowVirtualization
       // enableRowActions
       initialState={{ columnVisibility: {id:false} }}
-      // editingMode="modal" //default
+      editingMode="modal" //default
       enableEditing
       onEditingRowSave={handleSaveRowEdits}
       onEditingRowCancel={handleCancelRowEdits}
@@ -258,7 +270,7 @@ const OtherData=()=>{
       renderRowActions={({ row, table }) => (
           <Box sx={{ display: 'flex', gap: '1rem',marginRight:'10px' }}>
             <Tooltip arrow placement="left" title="Edit">
-              <IconButton onClick={() => setCreateModalOpen(true)}>
+              <IconButton onClick={() => table.setEditingRow(row)}>
                 <Edit />
               </IconButton>
             </Tooltip>

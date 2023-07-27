@@ -9,6 +9,7 @@ const SignUp = React.lazy(()=>import('./components/Auth/SignUp'))
 const Login = React.lazy(()=>import('./components/Auth/Login'))
 const OffreDetail=React.lazy(()=>import('./components/Home/OffreDetail'))
 const FichierForm=React.lazy(()=>import('./components/Fichier/FichierForm/FichierForm'))
+const ProfileSubmit=React.lazy(()=>import('./components/Profile/ProfileSubmit'))
 // const Facture = React.lazy(()=>import('./components/Orders/Facture/Facture'))
 // const Dashboard=React.lazy(()=>import('./components/Dashboard/Dashboard'))
 // const Stock=React.lazy(()=>import('./components/Stock/Stock'))
@@ -29,6 +30,7 @@ const routes = [
     { path: '/SignUp', name: 'SignUp', element: SignUp },
     {path:'/Login',name:'Login',element:Login},
     {path:'/OffreDetail',name:'OffreDetail',element:OffreDetail},
+    {path:'/ProfileSubmit',name:'ProfileSubmit',element:ProfileSubmit}
 
 /*  { path: '/users', name: 'users', element: Users },
   { path: '/velos', name: 'velos', element: Velos },
