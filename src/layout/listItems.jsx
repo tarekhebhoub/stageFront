@@ -13,6 +13,12 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import { useNavigate } from 'react-router-dom';
 
 const MainListItems =()=> {
+
+  const is_superuser=localStorage.getItem('is_superuser')
+  const is_departement=localStorage.getItem('is_departement')
+  const is_stricture=localStorage.getItem('is_stricture')
+  const is_commission=localStorage.getItem('is_commission')
+
   const navigate = useNavigate();
   const handleClick=(name)=>{
     switch (name) {
@@ -37,16 +43,12 @@ const MainListItems =()=> {
         </ListItemIcon>
         <ListItemText primary="Fichier" />
       </ListItemButton>
-
       <ListItemButton onClick={()=>handleClick('EtatFichier')}>
         <ListItemIcon>
           <ArchiveIcon />
         </ListItemIcon>
         <ListItemText primary="EtatFichier" />
       </ListItemButton>
-
-      
-      
     </React.Fragment>
   )
 }

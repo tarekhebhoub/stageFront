@@ -130,7 +130,7 @@ const FichierForm=()=> {
         PostDataGenerale()  
       }
     }else{
-      navigate('/ProfileSubmit')
+      navigate('/ProfileSubmit/'+dataGeneralRes.id)
     }
 
     

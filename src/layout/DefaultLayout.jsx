@@ -71,6 +71,7 @@ const DefaultLayout=()=> {
   const navigate = useNavigate();
 
   const token = localStorage.getItem('token');
+  
   const api_url='http://127.0.0.1:8000/logout/'
   const handleLogout=()=>{
     console.log('ibrahim')
@@ -156,8 +157,6 @@ const DefaultLayout=()=> {
           <Divider />
           <List component="nav">
             <MainListItems/>
-            
-            
           </List>
         </Drawer>
 
