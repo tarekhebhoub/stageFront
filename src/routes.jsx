@@ -24,7 +24,7 @@ const routes = [
 
 */
     { path: '/', name: 'Home', element: Home },
-    {path:'/Fichier',name:'Fichier', element:Fichier},
+    {path:'/FichierComm',name:'FichierComm', element:Fichier},
     {path:'/FichierForm',name:'FichierForm', element:FichierForm},
     {path:'/EtatFichier',name:'EtatFichier', element:EtatFichier},
     { path: '/SignUp', name: 'SignUp', element: SignUp },

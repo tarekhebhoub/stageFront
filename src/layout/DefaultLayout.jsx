@@ -13,7 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MainListItems from './listItems';
-import { AppContent } from '../components/index'
+import { AppContent,DepContent ,StrContent,ComContent,DRHContent} from '../components/index'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -70,6 +70,10 @@ const defaultTheme = createTheme();
 const DefaultLayout=()=> {
   const navigate = useNavigate();
 
+  const is_superuser=localStorage.getItem('is_superuser')
+  const is_departement=localStorage.getItem('is_departement')
+  const is_stricture=localStorage.getItem('is_stricture')
+  const is_commission=localStorage.getItem('is_commission')
   const token = localStorage.getItem('token');
   
   const api_url='http://127.0.0.1:8000/logout/'
@@ -175,7 +179,8 @@ const DefaultLayout=()=> {
           <Toolbar />
 
 
-          <AppContent/>
+          {is_departement?<DepContent/>:is_stricture?<StrContent/>:is_commission?<ComContent/>:is_superuser?<DRHContent/>:<AppContent/>}
+          
 
 
         </Box>

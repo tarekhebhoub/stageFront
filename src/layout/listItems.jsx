@@ -31,24 +31,64 @@ const MainListItems =()=> {
   }
   return(
     <React.Fragment>
-      <ListItemButton onClick={()=>handleClick('Home')}>
+    {is_departement?
+      (<ListItemButton onClick={()=>handleClick('Home')}>
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        <ListItemText primary="Home" />
+      </ListItemButton>):is_stricture?
+      (<ListItemButton onClick={()=>handleClick('Home')}>
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        <ListItemText primary="Home" />
+      </ListItemButton>):is_superuser?(
+        <ListItemButton onClick={()=>handleClick('Home')}>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="Home" />
       </ListItemButton>
-      <ListItemButton onClick={()=>handleClick('Fichier')}>
+      ):is_commission?(
+      <>
+        <ListItemButton onClick={()=>handleClick('Home')}>
         <ListItemIcon>
-          <SummarizeIcon />
+          <DashboardIcon />
         </ListItemIcon>
-        <ListItemText primary="Fichier" />
-      </ListItemButton>
-      <ListItemButton onClick={()=>handleClick('EtatFichier')}>
-        <ListItemIcon>
-          <ArchiveIcon />
-        </ListItemIcon>
-        <ListItemText primary="EtatFichier" />
-      </ListItemButton>
+        <ListItemText primary="Home" />
+        </ListItemButton>
+        <ListItemButton onClick={()=>handleClick('EtatFichier')}>
+          <ListItemIcon>
+            <ArchiveIcon />
+          </ListItemIcon>
+          <ListItemText primary="EtatFichier" />
+        </ListItemButton>
+        <ListItemButton onClick={()=>handleClick('FichierComm')}>
+          <ListItemIcon>
+            <SummarizeIcon />
+          </ListItemIcon>
+          <ListItemText primary="FichierComm" />
+        </ListItemButton>
+      </>
+      ):(
+        <>
+          <ListItemButton onClick={()=>handleClick('Home')}>
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Home" />
+          </ListItemButton>
+          <ListItemButton onClick={()=>handleClick('EtatFichier')}>
+            <ListItemIcon>
+              <ArchiveIcon />
+            </ListItemIcon>
+            <ListItemText primary="EtatFichier" />
+          </ListItemButton>
+        </>
+      )
+
+    }
     </React.Fragment>
   )
 }

@@ -27,6 +27,11 @@ const Home=()=>{
   useEffect(()=>{
     getOffers()
   },[])
+  const searchOffre=(e)=>{
+    const searchString = 'li'; // Replace this with the characters or substring you want to filter by.
+    const filteredOffers = offers.filter(offer => offer.TitreOffre.toLowerCase().includes(searchString.toLowerCase()));
+    // setData(filteredOffers)
+  }
   const Offers=offers.map((offer,index)=>{
     return(
       <Grid key={index} item xs={4}>
@@ -34,7 +39,9 @@ const Home=()=>{
       </Grid>
       )
     })
+
   return(
+  
   <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
     {Offers}
   </Grid>
