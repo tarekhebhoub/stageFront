@@ -10,11 +10,11 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-const BasicCard=({Employee,Post,Raison})=> {
+const BasicCard=({Employee,Post,Raison,id,EmployeeNom})=> {
   const url='http://127.0.0.1:8000/'
   const navigate = useNavigate();
   const handleClick=()=>{
-    navigate('/ProfileDetail')
+    navigate('/ProfileDetail/'+id+'/'+Employee)
   }
   
 
@@ -25,7 +25,7 @@ const BasicCard=({Employee,Post,Raison})=> {
           Word of the Day
         </Typography> */}
         <Typography variant="h5" component="div">
-         {Employee}
+         {EmployeeNom}
         </Typography>
         <Typography variant="h6" component="div">
          Post: {Post}

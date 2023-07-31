@@ -46,7 +46,7 @@ const Home=()=>{
   const Files=data.map((fils,index)=>{
     return(
       <Grid key={index} item xs={4}>
-        <BasicCard Employee={fils.id_Emp} Post={fils.PourPoste} Raison={fils.Raison_recrut}/>
+        <BasicCard Employee={fils.id_Emp} EmployeeNom={fils.nom} id={fils.id} Post={fils.PourPoste} Raison={fils.Raison_recrut}/>
       </Grid>
       )
     })

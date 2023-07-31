@@ -31,39 +31,28 @@ const MainListItems =()=> {
   }
   return(
     <React.Fragment>
-    {is_departement?
+    {
+      is_departement=='true'?
       (<ListItemButton onClick={()=>handleClick('Home')}>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="Home" />
-      </ListItemButton>):is_stricture?
+      </ListItemButton>):is_stricture=='true'?
       (<ListItemButton onClick={()=>handleClick('Home')}>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="Home" />
-      </ListItemButton>):is_superuser?(
+      </ListItemButton>):is_superuser=='true'?(
         <ListItemButton onClick={()=>handleClick('Home')}>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="Home" />
       </ListItemButton>
-      ):is_commission?(
+      ):is_commission=='true'?(
       <>
-        <ListItemButton onClick={()=>handleClick('Home')}>
-        <ListItemIcon>
-          <DashboardIcon />
-        </ListItemIcon>
-        <ListItemText primary="Home" />
-        </ListItemButton>
-        <ListItemButton onClick={()=>handleClick('EtatFichier')}>
-          <ListItemIcon>
-            <ArchiveIcon />
-          </ListItemIcon>
-          <ListItemText primary="EtatFichier" />
-        </ListItemButton>
         <ListItemButton onClick={()=>handleClick('FichierComm')}>
           <ListItemIcon>
             <SummarizeIcon />

@@ -76,6 +76,8 @@ const DefaultLayout=()=> {
   const is_commission=localStorage.getItem('is_commission')
   const token = localStorage.getItem('token');
   
+  console.log(is_departement)
+
   const api_url='http://127.0.0.1:8000/logout/'
   const handleLogout=()=>{
     console.log('ibrahim')
@@ -101,6 +103,21 @@ const DefaultLayout=()=> {
     setOpen(!open);
   };
 
+  const Content=()=>{
+    if(is_departement=='true'){
+      console.log('tarek')
+      return <DepContent/>
+    }else if(is_stricture=='true'){
+      return <StrContent/>
+    }else if(is_commission=='true'){
+      return <ComContent/>
+    }else if(is_superuser=='true'){
+      return <DRHContent/>
+    }
+      console.log('tarek')
+
+    return <AppContent/>
+  }
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -177,9 +194,9 @@ const DefaultLayout=()=> {
           }}
         >
           <Toolbar />
+          {/*{Content}*/}
 
-
-          {is_departement?<DepContent/>:is_stricture?<StrContent/>:is_commission?<ComContent/>:is_superuser?<DRHContent/>:<AppContent/>}
+          {is_departement=='true'?<DepContent/>:is_stricture=='true'?<StrContent/>:is_commission=='true'?<ComContent/>:is_superuser=='true'?<DRHContent/>:<AppContent/>}
           
 
 

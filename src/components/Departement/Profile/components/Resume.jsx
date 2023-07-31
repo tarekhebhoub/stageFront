@@ -32,7 +32,7 @@ const useStyles = makeStyles({
     },
   });
 
-const ActionAreaCard=()=>{
+const ActionAreaCard=({id})=>{
 
 
   
@@ -47,7 +47,7 @@ const ActionAreaCard=()=>{
         'Authorization': `Token ${token}`,
       }
     }
-    axios.get(url+'resume/',config)
+    axios.get(url+'resume/'+id+'/',config)
       .then((res) => {
       const data = res.data
       console.log(data)
@@ -60,9 +60,7 @@ const ActionAreaCard=()=>{
   useEffect(()=>{
     getResume();
   },[])
-  const handleClick=()=>{
-    console.log('tarek')
-  }
+ 
   return (
     <Card >
       
@@ -77,6 +75,20 @@ const ActionAreaCard=()=>{
             {resume.first_name} {resume.first_name}
           </Typography>
           <Grid container sx={{ color: 'text.primary' }}>
+            {/*<Typography variant="body2" color="text.secondary">*/}
+
+
+
+   {/* • Nom       :  …………………………………………………………………………………
+    • Prénom      :  ………………………………………………………………………………………………
+    • Date de naissance :  ………………………………………………………………………………………………
+    • Adresse personnelle : ………………………………………………………………………………………………
+    • Date recrutement SH : ………………………………………………………………………………………………
+    • Poste actuel    : ………………………………………………………………………………………………
+    • Echelle     : ………………………………………………………………………………………………
+    • Structure
+*/}
+
               <Grid item xs={4}>
                 <Typography>Date de naissance: </Typography>
               </Grid>
@@ -115,6 +127,9 @@ const ActionAreaCard=()=>{
               <Grid item xs={8}>
                 <Typography>{resume.Id_struc}</Typography>
               </Grid>
+
+
+
               <Grid item xs={4}>
                 <PhoneIcon/> 
               </Grid>
@@ -134,16 +149,19 @@ const ActionAreaCard=()=>{
               <Grid item xs={8}>
                 <Typography>{resume.Adresse_perso}</Typography>
               </Grid>
+
+              
+            {/*</Typography>*/}
           </Grid>
-          <Button
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            onClick={handleClick}
-          >
-            Modifie Profile
-          </Button>
+           {/* <Typography>
+              <EmailIcon/>
+            </Typography>
+            <Typography>
+              <OtherHousesIcon/>
+            </Typography>*/}
+      
         </CardContent>
+{/*      </CardActionArea>*/}
     </Card>
   );
 }
