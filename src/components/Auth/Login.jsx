@@ -58,7 +58,7 @@ const Login=()=> {
 
     })
     .catch((e) => {
-      console.log(url)
+      alert(e)
     });
   };
 

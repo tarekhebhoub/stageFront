@@ -45,17 +45,33 @@ const MainListItems =()=> {
         </ListItemIcon>
         <ListItemText primary="Home" />
       </ListItemButton>):is_superuser=='true'?(
+      <>
         <ListItemButton onClick={()=>handleClick('Home')}>
-        <ListItemIcon>
-          <DashboardIcon />
-        </ListItemIcon>
-        <ListItemText primary="Home" />
-      </ListItemButton>
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Home" />
+        </ListItemButton>
+        <ListItemButton onClick={()=>handleClick('Roles')}>
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Roles" />
+        </ListItemButton>
+        
+        <ListItemButton onClick={()=>handleClick('Fichier')}>
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Fichiers" />
+        </ListItemButton>
+      </>
+
       ):is_commission=='true'?(
       <>
         <ListItemButton onClick={()=>handleClick('FichierComm')}>
           <ListItemIcon>
-            <SummarizeIcon />
+            <DashboardIcon />
           </ListItemIcon>
           <ListItemText primary="FichierComm" />
         </ListItemButton>
