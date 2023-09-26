@@ -110,6 +110,7 @@ const OtherData=()=>{
     }
     axios.post(url+'parcoursprof/',values,config)
       .then((res) => {
+        console.log(res.data)
         data.unshift(res.data)
         setData([...data])
     })

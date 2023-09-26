@@ -33,12 +33,22 @@ const MainListItems =()=> {
     <React.Fragment>
     {
       is_departement=='true'?
-      (<ListItemButton onClick={()=>handleClick('Home')}>
-        <ListItemIcon>
-          <DashboardIcon />
-        </ListItemIcon>
-        <ListItemText primary="Home" />
-      </ListItemButton>):is_stricture=='true'?
+      (
+        <>
+          <ListItemButton onClick={()=>handleClick('Home')}>
+            <ListItemIcon>
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary="Home" />
+          </ListItemButton>
+          <ListItemButton onClick={()=>handleClick('Offers')}>
+            <ListItemIcon>
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary="Offers" />
+          </ListItemButton>
+        </>
+      ):is_stricture=='true'?
       (<ListItemButton onClick={()=>handleClick('Home')}>
         <ListItemIcon>
           <DashboardIcon />
@@ -58,22 +68,35 @@ const MainListItems =()=> {
           </ListItemIcon>
           <ListItemText primary="Roles" />
         </ListItemButton>
-        
-        <ListItemButton onClick={()=>handleClick('Fichier')}>
+        <ListItemButton onClick={()=>handleClick('Fichier_Satisfier')}>
           <ListItemIcon>
             <DashboardIcon />
           </ListItemIcon>
-          <ListItemText primary="Fichiers" />
+          <ListItemText primary="Fichiers Satisfier" />
         </ListItemButton>
+        <ListItemButton onClick={()=>handleClick('Files_For_Comm')}>
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Fichiers Pour Commission" />
+        </ListItemButton>
+
+        <ListItemButton onClick={()=>handleClick('etat_final')}>
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Etat Final" />
+        </ListItemButton>
+
       </>
 
       ):is_commission=='true'?(
       <>
-        <ListItemButton onClick={()=>handleClick('FichierComm')}>
+        <ListItemButton onClick={()=>handleClick('Home')}>
           <ListItemIcon>
             <DashboardIcon />
           </ListItemIcon>
-          <ListItemText primary="FichierComm" />
+          <ListItemText primary="Home" />
         </ListItemButton>
       </>
       ):(
@@ -84,11 +107,11 @@ const MainListItems =()=> {
           </ListItemIcon>
           <ListItemText primary="Home" />
           </ListItemButton>
-          <ListItemButton onClick={()=>handleClick('EtatFichier')}>
+          <ListItemButton onClick={()=>handleClick('Fichier')}>
             <ListItemIcon>
               <ArchiveIcon />
             </ListItemIcon>
-            <ListItemText primary="EtatFichier" />
+            <ListItemText primary="Fichier" />
           </ListItemButton>
         </>
       )

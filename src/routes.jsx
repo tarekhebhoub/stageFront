@@ -4,12 +4,12 @@ import React from 'react'
 // const Orders = React.lazy(() => import('./views/Orders/Orders'))
 const Home = React.lazy(()=>import('./components/Home/Home'))
 const Fichier = React.lazy(()=>import('./components/Fichier/Fichier'))
-const EtatFichier = React.lazy(()=>import('./components/Fichier/EtatFichier'))
 const SignUp = React.lazy(()=>import('./components/Auth/SignUp'))
 const Login = React.lazy(()=>import('./components/Auth/Login'))
 const OffreDetail=React.lazy(()=>import('./components/Home/OffreDetail'))
 const FichierForm=React.lazy(()=>import('./components/Fichier/FichierForm/FichierForm'))
 const ProfileSubmit=React.lazy(()=>import('./components/Profile/ProfileSubmit'))
+const ProfileDetail=React.lazy(()=>import('./components/Fichier/Profile/ProfileDetail'))
 // const Facture = React.lazy(()=>import('./components/Orders/Facture/Facture'))
 // const Dashboard=React.lazy(()=>import('./components/Dashboard/Dashboard'))
 // const Stock=React.lazy(()=>import('./components/Stock/Stock'))
@@ -24,13 +24,13 @@ const routes = [
 
 */
     { path: '/', name: 'Home', element: Home },
-    {path:'/FichierComm',name:'FichierComm', element:Fichier},
-    {path:'/FichierForm',name:'FichierForm', element:FichierForm},
-    {path:'/EtatFichier',name:'EtatFichier', element:EtatFichier},
+    {path:'/Fichier',name:'FichierComm', element:Fichier},
+    {path:'/Offre/:id/FichierForm',name:'FichierForm', element:FichierForm},
     { path: '/SignUp', name: 'SignUp', element: SignUp },
     {path:'/Login',name:'Login',element:Login},
-    {path:'/OffreDetail',name:'OffreDetail',element:OffreDetail},
-    {path:'/ProfileSubmit/:id',name:'ProfileSubmit',element:ProfileSubmit}
+    {path:'/Offre/:id',name:'OffreDetail',element:OffreDetail},
+    {path:'/ProfileSubmit/:id',name:'ProfileSubmit',element:ProfileSubmit},
+    {path: '/ProfileDetail/:id/:iduser', name: 'ProfileDetail', element: ProfileDetail }
 
 /*  { path: '/users', name: 'users', element: Users },
   { path: '/velos', name: 'velos', element: Velos },

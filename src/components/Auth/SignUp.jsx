@@ -86,8 +86,11 @@ const SignUp=()=>{
       .then((res) => {
         console.log(res)
         localStorage.setItem('token',res.data.token)
+        localStorage.setItem('is_superuser',res.data.is_superuser)
+        localStorage.setItem('is_departement',res.data.is_departement)
+        localStorage.setItem('is_stricture',res.data.is_stricture)
+        localStorage.setItem('is_commission',res.data.is_commission)
         window.location.reload();
-
     })
     .catch((e) => {
       console.log(url)

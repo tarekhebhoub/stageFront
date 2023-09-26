@@ -30,10 +30,6 @@ class App extends Component {
           </Routes>
         </Suspense>
       </HashRouter>
-
-     
-
-    
     )
   }
 }

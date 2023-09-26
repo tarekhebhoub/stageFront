@@ -10,18 +10,18 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-const BasicCard=({Diraction,Departement,PostFilier,nbrPost,offre})=> {
+const BasicCard=({Diraction,Departement,PostFilier,nbrPost,offre,id})=> {
   const url='http://127.0.0.1:8000/'
   const navigate = useNavigate();
   const handleClick=()=>{
-    navigate('/OffreDetail')
+    navigate('/Offre/'+id)
   }
   const handleInfo=()=>{
      window.open(url+'fichier/2/FichierB/'); 
   }
   const handleFichier=()=>{
 
-    navigate('/FichierForm')
+    navigate('FichierForm')
   }
   return (
     <Card sx={{ minWidth: 275 }}>

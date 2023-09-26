@@ -26,23 +26,25 @@ const ProfileSubmit= () => {
   const [fanction,Setfanction]=useState('')
   const [CompetanceRespo,SetCompetanceRespo]=useState('')
   const [Commentaire,SetCommentaire]=useState('')
-
+  const [checked,setChecked]=useState(false)
+  const [responseDep,setReponseDep]=useState(false)
   const handleSubmitClick=()=>{
     const data={
       'NomRespo':NomRespo,
       'PrenomRespo':PrenomRespo,
       'fanction':fanction,
       'CompetanceRespo':CompetanceRespo,
-      'Commentaire':Commentaire
+      'Commentaire':Commentaire,
+      'favorable':checked,
     }
     const config = {
       headers: {
         'Authorization': `Token ${token}`,
       }
     }
-    axios.put(url+'fichier/'+id+'/',{data},config)
+    axios.put(url+'filePutDep/'+id+'/',{data},config)
       .then((res) => {
-        console.log(res)
+        console.log(res.data)
         navigate('/')
     })
     .catch((e) => {
@@ -50,25 +52,30 @@ const ProfileSubmit= () => {
     });
 
   }
- // const getiduser=()=>{
- //  const config = {
- //      headers: {
- //        'Authorization': `Token ${token}`,
- //      }
- //    }
- //    axios.get(url+'fichier/'+id+'/',config)
- //      .then((res) => {
- //      const id=res.data.id_Emp
- //      setIduser(id)
- //      console.log(iduser)
- //    })
- //    .catch((e) => {
- //      console.log(url)
- //    });
- // }
- //  useEffect(()=>{
- //    getiduser()
- //  },[])
+ const getFile=()=>{
+  const config = {
+      headers: {
+        'Authorization': `Token ${token}`,
+      }
+    }
+    axios.get(url+'fichier/'+id+'/',config)
+      .then((res) => {
+        const file=res.data
+        SetNomRespo(file.NomRespo)
+        SetPrenomRespo(file.PrenomRespo)
+        Setfanction(file.fanction)
+        SetCompetanceRespo(file.CompetanceRespo)
+        SetCommentaire(file.Commentaire)
+        setChecked(file.favorable)
+        setReponseDep(file.response_Dep)
+    })
+    .catch((e) => {
+      console.log(url)
+    });
+ }
+  useEffect(()=>{
+    getFile()
+  },[])
 
   return(
     <ThemeProvider theme={defaultTheme}>
@@ -89,6 +96,7 @@ const ProfileSubmit= () => {
           <Card >
             <CardContent>
               <FormChef
+                responseDep={responseDep}
                 NomRespo={NomRespo}
                 PrenomRespo={PrenomRespo}
                 fanction={fanction}
@@ -99,6 +107,8 @@ const ProfileSubmit= () => {
                 Setfanction={Setfanction}
                 SetCompetanceRespo={SetCompetanceRespo}
                 SetCommentaire={SetCommentaire}
+                setChecked={setChecked}
+                checked={checked}
               />
               </CardContent>
           </Card>
@@ -108,6 +118,7 @@ const ProfileSubmit= () => {
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
           onClick={handleSubmitClick}
+          disabled={responseDep?true:false}
         >
           ENVOYER L'APPRECIATION
         </Button>

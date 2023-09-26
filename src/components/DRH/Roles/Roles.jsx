@@ -45,7 +45,7 @@ const Roles=()=>{
       { field: 'is_superuser', headerName:'isDrh',editable:true,type: 'boolean', width: 200 },
       { field: 'is_departement', headerName:'is Chef Departement',editable:true,type: 'boolean', width: 200 },
       { field: 'is_stricture', headerName:'is Chef Diraction',editable:true,type: 'boolean', width: 200 },
-      { field: 'is_commission', headerName:'is Commision',type: 'boolean', width: 200 },
+      { field: 'is_commission', headerName:'is Commision',type: 'boolean', editable:true,width: 200 },
 
 	    ],
   );
@@ -81,6 +81,7 @@ const Roles=()=>{
 	  	if(newRow.is_superuser==true){
 	  		newRow.is_departement=false
 	  		newRow.is_stricture=false
+	  		newRow.is_commission=false
 	    	return `change ${oldRow.first_name} ${oldRow.last_name} to DRH`;
 	  	}
 	  	if(newRow.is_superuser==false){
@@ -91,6 +92,8 @@ const Roles=()=>{
 	    if(newRow.is_departement==true){
 	    	newRow.is_superuser=false
 	  		newRow.is_stricture=false
+	  		newRow.is_commission=false
+
 	    	return `change ${oldRow.first_name} ${oldRow.last_name} to Chef Departement`;
 	  	}
 	  	if(newRow.is_departement==false){
@@ -101,10 +104,22 @@ const Roles=()=>{
 	    if(newRow.is_stricture==true){
 	    	newRow.is_superuser=false
 	  		newRow.is_departement=false
+	  		newRow.is_commission=false
+	  		
 	    	return `change ${oldRow.first_name} ${oldRow.last_name} to Chef Diraction`;
 	  	}
 	  	if(newRow.is_stricture==false){
 	  		return `remove ${oldRow.first_name} ${oldRow.last_name} from Chef Diraction`;
+	  	}
+	  }
+	  if (newRow.is_commission !== oldRow.is_commission) {
+	    if(newRow.is_commission==true){
+	    	newRow.is_superuser=false
+	  		newRow.is_departement=false
+	    	return `change ${oldRow.first_name} ${oldRow.last_name} to Chef Commission`;
+	  	}
+	  	if(newRow.is_commission==false){
+	  		return `remove ${oldRow.first_name} ${oldRow.last_name} from Chef Commission`;
 	  	}
 	  }
 	  return null;

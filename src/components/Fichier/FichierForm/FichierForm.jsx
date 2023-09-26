@@ -16,6 +16,7 @@ import OtherData from './OtherData';
 import Review from './Review';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 
 function Copyright(props) {
@@ -71,14 +72,16 @@ const FichierForm=()=> {
     }
   }
 
+  const {id}=useParams()
+  const id_offer=id
   const PostDataGenerale=()=>{
     const dataGeneral={
+      'id_Offre':id_offer,
       'PourPoste':PourPoste,
       'Raison_recrut':Raison_recrut,
       'Specialite':Specialite,
       'formation_comp':formation_comp,
       'seminaire':seminaire,
-      
     }
     const config = {
       headers: {
@@ -98,6 +101,7 @@ const FichierForm=()=> {
   }
   const PutDataGenerale=(id)=>{
     const dataGeneral={
+      'id_Offre':id_offer,
       'PourPoste':PourPoste,
       'Raison_recrut':Raison_recrut,
       'Specialite':Specialite,
