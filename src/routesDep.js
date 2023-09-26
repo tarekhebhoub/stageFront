@@ -8,6 +8,8 @@ const Offers=React.lazy(()=>import('./components/Departement/Offers/Home'))
 const OffreDetail=React.lazy(()=>import('./components/Departement/Offers/OffreDetail'))
 const FichierForm=React.lazy(()=>import('./components/Fichier/FichierForm/FichierForm'))
 const ProfileSubmit=React.lazy(()=>import('./components/Profile/ProfileSubmit'))
+const Fichier = React.lazy(()=>import('./components/Fichier/Fichier'))
+const ProfileDetail2=React.lazy(()=>import('./components/Fichier/Profile/ProfileDetail'))
 
 const routes = [
 
@@ -17,6 +19,8 @@ const routes = [
     {path:'/Offer/:id',name:'OffreDetail',element:OffreDetail},
     {path:'/Offer/:id/FichierForm',name:'FichierForm', element:FichierForm},
     {path:'/ProfileSubmit/:id',name:'ProfileSubmit',element:ProfileSubmit},
+    {path:'/Fichier',name:'FichierComm', element:Fichier},
+    {path: '/ProfileDetail2/:id/:iduser', name: 'ProfileDetail2', element: ProfileDetail2 }
 
     
     // {path:'/FichierComm',name:'FichierComm', element:Fichier},

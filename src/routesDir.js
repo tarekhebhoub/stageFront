@@ -4,11 +4,16 @@ import React from 'react'
 // const Orders = React.lazy(() => import('./views/Orders/Orders'))
 const Home = React.lazy(()=>import('./components/Diraction/Home/Home'))
 const ProfileDetail=React.lazy(()=>import('./components/Diraction/Profile/ProfileSubmit'))
+const FileChefDep=React.lazy(()=>import('./components/Diraction/FileChefDep/Home/Home'))
+const ProfileDetail1=React.lazy(()=>import('./components/Diraction/FileChefDep/Profile/ProfileSubmit'))
 
 const routes = [
 
     { path: '/', name: 'Home', element: Home },
     { path: '/ProfileDetail/:id/:iduser', name: 'ProfileDetail', element: ProfileDetail },
+    { path: '/fileChefDep', name: 'FileChefDep', element: FileChefDep },
+    { path: '/ProfileDetail1/:id/:iduser', name: 'ProfileDetail1', element: ProfileDetail1 },
+
 
     
     // {path:'/FichierComm',name:'FichierComm', element:Fichier},

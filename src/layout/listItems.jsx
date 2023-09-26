@@ -47,14 +47,31 @@ const MainListItems =()=> {
             </ListItemIcon>
             <ListItemText primary="Offers" />
           </ListItemButton>
+          <ListItemButton onClick={()=>handleClick('Fichier')}>
+            <ListItemIcon>
+              <ArchiveIcon />
+            </ListItemIcon>
+            <ListItemText primary="Fichier" />
+          </ListItemButton>
+
         </>
       ):is_stricture=='true'?
-      (<ListItemButton onClick={()=>handleClick('Home')}>
-        <ListItemIcon>
-          <DashboardIcon />
-        </ListItemIcon>
-        <ListItemText primary="Home" />
-      </ListItemButton>):is_superuser=='true'?(
+      (
+        <>
+          <ListItemButton onClick={()=>handleClick('Home')}>
+            <ListItemIcon>
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary="Home" />
+          </ListItemButton>
+          <ListItemButton onClick={()=>handleClick('fileChefDep')}>
+            <ListItemIcon>
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary="Chef Departement File" />
+          </ListItemButton>
+        </>
+      ):is_superuser=='true'?(
       <>
         <ListItemButton onClick={()=>handleClick('Home')}>
           <ListItemIcon>

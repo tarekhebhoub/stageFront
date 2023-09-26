@@ -30,7 +30,7 @@ const routes = [
     {path:'/Login',name:'Login',element:Login},
     {path:'/Offre/:id',name:'OffreDetail',element:OffreDetail},
     {path:'/ProfileSubmit/:id',name:'ProfileSubmit',element:ProfileSubmit},
-    {path: '/ProfileDetail/:id/:iduser', name: 'ProfileDetail', element: ProfileDetail }
+    {path: '/ProfileDetail2/:id/:iduser', name: 'ProfileDetail', element: ProfileDetail }
 
 /*  { path: '/users', name: 'users', element: Users },
   { path: '/velos', name: 'velos', element: Velos },
