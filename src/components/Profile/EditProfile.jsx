@@ -20,128 +20,177 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import axios from 'axios'
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
-// TODO remove, this demo shouldn't need to reset the theme.
 
-const defaultTheme = createTheme({
-  palette: {
-    primary: {
-      light: '#757ce8',
-      main: '#f79845',
-      dark: '#002884',
-      contrastText: '#fff',
-    },
-    secondary: {
-      light: '#ff7961',
-      main: '#f44336',
-      dark: '#ba000d',
-      contrastText: '#000',
-    },
-  },
-});
+const EditProfile=()=>{
+  	const url='http://127.0.0.1:8000/'
+  	const navigate = useNavigate();
+  	const [selectedImage, setSelectedImage] = useState(null);
+	const [structure,setStrucutre]=useState([])
+  	const [departement,setDepartement]=useState([])
+  	const [departementId,setDepartementId]=useState([])
+    const [profileDate,setProfileData]=useState()
+ 	const [structureId,setStructureId]=useState([])
+ 	const token=localStorage.getItem('token')
+	const defaultTheme = createTheme();
+  const [defaultStructure,setDefaultStructure]=useState({})
+  const [defaultDepartement,setDefaultDepartement]=useState({})
+	const handleImageChange = (event) => {
+    	const file = event.target.files[0];
+    	setSelectedImage(file);
+  	};
+  	
 
-const SignUp=()=>{
-  const navigate = useNavigate();
-  const [structure,setStrucutre]=useState([])
-  const [departement,setDepartement]=useState([])
-
-  const [departementId,setDepartementId]=useState([])
-  const [structureId,setStructureId]=useState([])
-
+    const getProfileData=()=>{
+      const config = {
+        headers: {
+          'Authorization': `Token ${token}`,
+        }
+      }
+      axios.get(url+'profileData/',config)
+        .then((res)=>{
+          const data=res.data
+          setfirstName(data.first_name)
+          setlastName(data.last_name)
+          setdateBirth(data.Date_Naiss)
+          setphone(data.Telephone)
+          setposteActuel(data.Poste_actuel)
+          setEchelle(data.Echelle)
+          setDate_Recrut(data.Date_Recrut)
+          setStructure(data.Id_struc)
+          setdepartement(data.Id_dep)
+          setusername(data.username)
+          setemailPers(data.Adresse_perso)
+          setemailProf(data.email)
+          setProfileData(data)
+          console.log(res.data)
+        })
+        .catch((e)=>{
+          console.log(e)
+        })
+    }
   // const url=process.env.REACT_APP_URL
-  const url='http://127.0.0.1:8000/'
-  console.log(url)
-  const getStructure=()=>{
-    const config = {
-      headers: {
-        //'Authorization': `Token ${token}`,
-      }
-    }
-    axios.get(url+'structure/')
-      .then((res) => {
-      const data = res.data
-      console.log(data)
-      setStrucutre(data)
-    })
-    .catch((e) => {
-      console.log(url)
-    });
-  }
-  useEffect(()=>{
-    getStructure();
-  },[])
-
-  const [selectedImage, setSelectedImage] = useState(null);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    let data={}
-    let form_data = new FormData();
-    for (let [key, value] of formData.entries()) { 
-      console.log(key)
-      if(key=='Structure'){
-        form_data.append('Id_struc',structureId);
-      }else if(key=='Departement'){
-        form_data.append('Id_dep',departementId);
-      }
-      else{
-        form_data.append(key,value);
-      }
-
+  	const getStructure=()=>{
+	    const config = {
+	      headers: {
+	        //'Authorization': `Token ${token}`,
+	      }
+	    }
+	    axios.get(url+'structure/')
+	      .then((res) => {
+	      const data = res.data
+	      setStrucutre(data)
+        console.log(1)
+	    })
+	    .catch((e) => {
+	      console.log(e)
+	    });
+ 	}
+  const DefaultStrTrait=()=>{
+    const defaultstr=structure.find(x => x.id === profileDate?.Id_struc)
+    setDefaultStructure(defaultstr)
+    if(departement.length==0){
+      getDepartement(defaultstr.id)
       
-      }
-    
-    console.log(form_data)
-    const config = {
-      headers: {
-        //'Authorization': `Token ${token}`,
-       "Content-Type": "multipart/form-data"
-      }
     }
-    axios.post(url+'sign-up/',form_data)
-      .then((res) => {
-        console.log(res.data)
-        localStorage.setItem('token',res.data.token)
-        localStorage.setItem('is_superuser',res.data.is_superuser)
-        localStorage.setItem('is_departement',res.data.is_departement)
-        localStorage.setItem('is_stricture',res.data.is_stricture)
-        localStorage.setItem('is_commission',res.data.is_commission)
-        window.location.reload();
-    })
-    .catch((e) => {
-      console.log(url)
-    });
-  };
-
-
-  const getDepartement=(str)=> {
-    setStructureId(str)
-
-    const config = {
-      headers: {
-        //'Authorization': `Token ${token}`,
-        "Content-Type": "multipart/form-data",
-      }
+    else{
+      const defaultDep=departement.find(x=>x.id===profileDate?.Id_dep)
+      setDefaultDepartement(defaultDep)
+      setDepartementId(defaultDep.id)
+      console.log(departement)
     }
-    axios.get(url+'structure/'+str+'/')
-      .then((res) => {
-      const data = res.data
-      console.log(data)
-      setDepartement(data)
-    })
-    .catch((e) => {
-      console.log(url)
-    });
+   
+    console.log(3)
   }
 
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedImage(file);
-  };
+	useEffect(()=>{
+    if(structure.length==0){
+      getStructure();
+    }
+    if(structure.length!=0){
+     if(!profileDate){
+      getProfileData();
+     }
+     if(profileDate){
+      DefaultStrTrait(); 
+     }
+    }
+	},[structure,profileDate,departement])
 
 
-  return (
+  	const getDepartement=(str)=> {
+	    setStructureId(str)
+	    const config = {
+	      headers: {
+	        'Authorization': `Token ${token}`,
+	        "Content-Type": "multipart/form-data",
+	      }
+	    }
+	    axios.get(url+'structure/'+str+'/')
+	      .then((res) => {
+	      const data = res.data
+	      setDepartement(data)
+	    })
+	    .catch((e) => {
+	      console.log(url)
+	    });
+  	}
+
+
+  	const handleSubmit = (event) => {
+	    event.preventDefault();
+	    const formData = new FormData(event.target);
+	    let data={}
+	    let form_data = new FormData();
+	    for (let [key, value] of formData.entries()) { 
+	      console.log(key)
+	      if(key=='Structure'){
+	        form_data.append('Id_struc',structureId);
+	      }else if(key=='Departement'){
+	        form_data.append('Id_dep',departementId);
+	      }
+	      else{
+	        form_data.append(key,value);
+	      }
+
+	      
+	      }
+	    
+	    console.log(form_data)
+	    const config = {
+	      headers: {
+	        'Authorization': `Token ${token}`,
+	       "Content-Type": "multipart/form-data"
+	      }
+	    }
+	    axios.put(url+'editProfile/',form_data,config)
+	      .then((res) => {
+	        console.log(res.data)
+	        navigate(-1)
+	    })
+	    .catch((e) => {
+	      console.log(url)
+	    });
+  	};
+    const handleChange=(e)=>{
+      console.log(e.target.value)
+    }
+
+
+    const [firstName,setfirstName]=useState('')
+    const [lastName,setlastName]=useState('')
+    const [dateBirth,setdateBirth]=useState('')
+    const [phone,setphone]=useState('')
+    const [posteActuel,setposteActuel]=useState('')
+    const [Echelle,setEchelle]=useState('')
+    const [Date_Recrut,setDate_Recrut]=useState('')
+    const [Structure,setStructure]=useState('')
+    const [Departement,setdepartement]=useState('')
+    const [username,setusername]=useState('')
+    const [emailPers,setemailPers]=useState('')
+    const [emailProf,setemailProf]=useState('')
+
+  	return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -157,7 +206,7 @@ const SignUp=()=>{
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Edit Profile
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -170,6 +219,11 @@ const SignUp=()=>{
                   id="firstName"
                   label="Nom"
                   autoFocus
+                  defaultValue=' '
+                  onChange={handleChange}
+                  value={firstName}
+                  onChange={(e)=>setfirstName(e.target.value)}
+                  
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -180,7 +234,9 @@ const SignUp=()=>{
                   label="Prenom"
                   name="last_name"
                   autoComplete="family-name"
-                  
+                  defaultValue=' '
+                  value={lastName}
+                  onChange={(e)=>setlastName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -192,7 +248,11 @@ const SignUp=()=>{
                       format="YYYY-MM-DD"
                       name="Date_Naiss"
                       fullWidth
+                      // value='2002-01-03'
                       //value={dateBirth}
+                      // defaultValue=' '
+                      value={dayjs(dateBirth)}
+                      onChange={(e)=>setdateBirth(e)}
                       
                       />
                   </DemoContainer>
@@ -206,7 +266,10 @@ const SignUp=()=>{
                   label="Telephone"
                   fullWidth
                   autoComplete="Téléphone/ Fax"
-                 
+                  defaultValue=' '
+                  value={phone}
+                  onChange={(e)=>setphone(e.target.value)}
+
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -217,7 +280,10 @@ const SignUp=()=>{
                   label="Poste actuel"
                   name="Poste_actuel"
                   autoComplete="posteActuel"
-                 
+                  defaultValue=' '
+                  value={posteActuel}
+                  onChange={(e)=>setposteActuel(e.target.value)}
+                  
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -228,19 +294,24 @@ const SignUp=()=>{
                   label="Echelle"
                   name="Echelle"
                   autoComplete="Echelle"
+                  defaultValue=' '
+                  value={Echelle}
+                  onChange={(e)=>setEchelle(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer components={['DateField']}>
                     <DateField 
-                      id='dateBirth'
+                      id='Date_Recrut'
                       label="Date de Recrutement" 
                       format="YYYY-MM-DD"
                       name="Date_Recrut"
                       fullWidth
                       //value={dateBirth}
-                      
+                      // defaultValue=' '
+                      value={dayjs(Date_Recrut)}
+                      onChange={(e)=>setDate_Recrut(e)}
                       />
                   </DemoContainer>
                 </LocalizationProvider>
@@ -250,12 +321,15 @@ const SignUp=()=>{
                 disablePortal
                 id="Structure"
                 name="Structure"
-               
+                // defaultValue=' '
+                // value={profileDat e?.Structure}
+                // defaultValue={{id:5,Nom_struc:"tarek"}}
+                value={defaultStructure}
                 options={structure}
                 getOptionLabel={(option) => option.Nom_struc} // Specify how to display the label in the Autocomplete dropdown
                 onChange={(e, selectedOption) => { getDepartement(selectedOption?.id) }}
                 // sx={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} name="Structure" label="Structure" />}
+                renderInput={(params) => <TextField  {...params} name="Structure" label="Structure" />}
               />
               </Grid>
 
@@ -263,8 +337,10 @@ const SignUp=()=>{
               <Autocomplete
                 disablePortal
                 id="Id_dep"
-                
+                // defaultValue=' ' 
+                // value={profileDate?.Departement} 
                 name="Departement"
+                value={defaultDepartement}
                 options={departement}
                 getOptionLabel={(option) => option.Nom_dep} // Specify how to display the label in the Autocomplete dropdown
                  onChange={(e, selectedOption) => { setDepartementId(selectedOption?.id) }}
@@ -283,7 +359,9 @@ const SignUp=()=>{
                   label="Nom D'utilisateur"
                   name="username"
                   autoComplete="username"
-                 
+                  defaultValue=' ' 
+                  value={username} 
+                  onChange={(e)=>setusername(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -294,7 +372,9 @@ const SignUp=()=>{
                   label="Adresse personnelle"
                   name="Adresse_perso"
                   autoComplete="email"
-                  
+                  defaultValue=' ' 
+                  value={emailPers} 
+                  onChange={(e)=>setemailPers(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -305,21 +385,12 @@ const SignUp=()=>{
                   label="Adresse professionnelle"
                   name="email"
                   autoComplete="email"
-                  
+                  defaultValue=' ' 
+                  value={emailProf} 
+                  onChange={(e)=>setemailProf(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                  
-                />
-              </Grid>
+              
               <Grid item xs={12}>
                 <Button
                   variant="contained"
@@ -333,6 +404,8 @@ const SignUp=()=>{
                     id="Photo"
                     name="Photo"
                     required
+                    // defaultValue=' ' 
+                    // value={profileDate?profileDate.Photo:null} 
                   />
                 </Button>
               </Grid>
@@ -343,15 +416,8 @@ const SignUp=()=>{
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Edit Profile
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="#/login" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
       </Container>
@@ -359,4 +425,17 @@ const SignUp=()=>{
   );
 }
 
-export default SignUp
+export default EditProfile
+
+
+  
+
+
+  
+
+
+ 
+
+
+
+

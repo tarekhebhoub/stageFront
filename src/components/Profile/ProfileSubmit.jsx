@@ -33,7 +33,7 @@ const ProfileSubmit= () => {
     });
   }
   const handleModifieClick=()=>{
-    console.log("tarek")
+    navigate('/EditFile')
   }
 
   return(

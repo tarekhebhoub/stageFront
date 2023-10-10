@@ -13,7 +13,7 @@ import OtherHousesIcon from '@mui/icons-material/OtherHouses';
 import Grid from '@mui/material/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import {Button} from '@mui/material';
-
+import { useNavigate } from 'react-router-dom';
 const useStyles = makeStyles({
     card: {
       width: "100%",
@@ -33,10 +33,7 @@ const useStyles = makeStyles({
   });
 
 const ActionAreaCard=()=>{
-
-
-  
-
+  const navigate = useNavigate();
   const classes = useStyles();
   const url='http://127.0.0.1:8000/'
   const token=localStorage.getItem('token')
@@ -61,7 +58,7 @@ const ActionAreaCard=()=>{
     getResume();
   },[])
   const handleClick=()=>{
-    console.log('tarek')
+    navigate('/EditProfile')
   }
   return (
     <Card >

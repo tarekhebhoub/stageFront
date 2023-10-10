@@ -65,7 +65,22 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 // TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
+const defaultTheme = createTheme({
+   palette: {
+    primary: {
+      light: '#757ce8',
+      main: '#f79845',
+      dark: '#002884',
+      contrastText: '#fff',
+    },
+    secondary: {
+      light: '#ff7961',
+      main: '#f44336',
+      dark: '#ba000d',
+      contrastText: '#000',
+    },
+  },
+});
 
 const DefaultLayout=()=> {
   const navigate = useNavigate();
@@ -76,7 +91,6 @@ const DefaultLayout=()=> {
   const is_commission=localStorage.getItem('is_commission')
   const token = localStorage.getItem('token');
   
-  console.log(is_departement)
 
   const api_url='http://127.0.0.1:8000/logout/'
   const handleLogout=()=>{
@@ -154,11 +168,6 @@ const DefaultLayout=()=> {
                 <LogoutIcon />
             </ListItemButton>
 
-            {/* <IconButton color="inherit">
-                  
-                <LogoutIcon />
-             
-            </IconButton> */}
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>

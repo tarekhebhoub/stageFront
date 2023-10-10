@@ -11,6 +11,7 @@ import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import { useNavigate } from 'react-router-dom';
+import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 
 const MainListItems =()=> {
 
@@ -29,7 +30,27 @@ const MainListItems =()=> {
         navigate('/'+name);
     }
   }
+
+  const defaultTheme = createTheme({
+   palette: {
+    primary: {
+      light: '#757ce8',
+      main: '#f79845',
+      dark: '#002884',
+      contrastText: '#fff',
+    },
+    secondary: {
+      light: '#ff7961',
+      main: '#f44336',
+      dark: '#ba000d',
+      contrastText: '#000',
+    },
+  },
+});
+
   return(
+    <ThemeProvider theme={defaultTheme}>
+
     <React.Fragment>
     {
       is_departement=='true'?
@@ -135,6 +156,8 @@ const MainListItems =()=> {
 
     }
     </React.Fragment>
+    </ThemeProvider>
+
   )
 }
 

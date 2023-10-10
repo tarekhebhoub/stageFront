@@ -17,7 +17,7 @@ const BasicCard=({Diraction,Departement,PostFilier,nbrPost,offre,id})=> {
     navigate('/Offre/'+id)
   }
   const handleInfo=()=>{
-     window.open(url+'fichier/2/FichierB/'); 
+     window.open(url+'fichier/'+id+'/FichierB/'); 
   }
   const handleFichier=()=>{
 

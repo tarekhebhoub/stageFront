@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
+
 // TODO remove, this demo shouldn't need to reset the theme.
 function Copyright(props) {
   return (
@@ -26,7 +27,23 @@ function Copyright(props) {
     </Typography>
   );
 }
-const defaultTheme = createTheme();
+const defaultTheme = createTheme({
+  palette: {
+    primary: {
+      light: '#757ce8',
+      main: '#f79845',
+      dark: '#002884',
+      contrastText: '#fff',
+    },
+    secondary: {
+      light: '#ff7961',
+      main: '#f44336',
+      dark: '#ba000d',
+      contrastText: '#000',
+    },
+  },
+});
+
 
 const Login=()=> {
   const navigate = useNavigate();

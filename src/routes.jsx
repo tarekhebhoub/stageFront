@@ -10,6 +10,8 @@ const OffreDetail=React.lazy(()=>import('./components/Home/OffreDetail'))
 const FichierForm=React.lazy(()=>import('./components/Fichier/FichierForm/FichierForm'))
 const ProfileSubmit=React.lazy(()=>import('./components/Profile/ProfileSubmit'))
 const ProfileDetail=React.lazy(()=>import('./components/Fichier/Profile/ProfileDetail'))
+const EditProfile=React.lazy(()=>import('./components/Profile/EditProfile'))
+const EditFile=React.lazy(()=>import('./components/Profile/EditFile/EditFile'))
 // const Facture = React.lazy(()=>import('./components/Orders/Facture/Facture'))
 // const Dashboard=React.lazy(()=>import('./components/Dashboard/Dashboard'))
 // const Stock=React.lazy(()=>import('./components/Stock/Stock'))
@@ -30,7 +32,11 @@ const routes = [
     {path:'/Login',name:'Login',element:Login},
     {path:'/Offre/:id',name:'OffreDetail',element:OffreDetail},
     {path:'/ProfileSubmit/:id',name:'ProfileSubmit',element:ProfileSubmit},
-    {path: '/ProfileDetail2/:id/:iduser', name: 'ProfileDetail', element: ProfileDetail }
+    {path: '/ProfileDetail2/:id/:iduser', name: 'ProfileDetail', element: ProfileDetail },
+    { path: '/EditProfile', name: 'EditProfile', element: EditProfile },
+    { path: '/EditFile', name: 'EditFile', element: EditFile },
+
+
 
 /*  { path: '/users', name: 'users', element: Users },
   { path: '/velos', name: 'velos', element: Velos },
