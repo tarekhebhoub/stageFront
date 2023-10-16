@@ -33,7 +33,7 @@ const ProfileSubmit= () => {
     });
   }
   const handleModifieClick=()=>{
-    navigate('/EditFile')
+    navigate('/EditFile/'+id)
   }
 
   return(

@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -13,11 +13,10 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import DataGeneral from './DataGeneral';
 import OtherData from './OtherData';
-import Review from './Review';
+// import Review from './Review';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
-
 
 function Copyright(props) {
   return (
@@ -40,7 +39,7 @@ const EditFile=()=> {
   const [Specialite,SetSpecialite]=useState('')
   const [formation_comp,Setformation_comp]=useState('')
   const [seminaire,Setseminaire]=useState('')
-
+  const [id_Offre,SetId_Offre]=useState('')
 
 
   const url='http://127.0.0.1:8000/';
@@ -65,43 +64,39 @@ const EditFile=()=> {
           />;
       case 1:
         return <OtherData />;
-      case 2:
-        return <Review />;
       default:
         throw new Error('Unknown step');
     }
   }
 
   const {id}=useParams()
-  const id_offer=id
-  const PostDataGenerale=()=>{
-    const dataGeneral={
-      'id_Offre':id_offer,
-      'PourPoste':PourPoste,
-      'Raison_recrut':Raison_recrut,
-      'Specialite':Specialite,
-      'formation_comp':formation_comp,
-      'seminaire':seminaire,
-    }
+  
+  const getFile=()=>{
     const config = {
       headers: {
         'Authorization': `Token ${token}`,
       }
     }
-    axios.post(url+'fichier/',dataGeneral,config)
-      .then((res) => {
-      const data = res.data
-      setDataGeneralRes(data)
-      console.log(dataGeneralRes)
-      setActiveStep(activeStep + 1);
-    })
-    .catch((e) => {
-      console.log(url)
-    });
+    axios.get(url+'fichier/'+id+'/',config)
+    .then((res)=>{
+      const data=res.data
+        SetRaPourPoste(data.PourPoste)
+        SetRaison_recrut(data.Raison_recrut)
+        SetSpecialite(data.Specialite)
+        Setformation_comp(data.formation_comp)
+        Setseminaire(data.seminaire)
+        SetId_Offre(data.id_Offre)
+        setDataGeneralRes(data)
+      })
+      .catch((e)=>{
+        console.log(e);
+      }) 
   }
+
+
   const PutDataGenerale=(id)=>{
     const dataGeneral={
-      'id_Offre':id_offer,
+      'id_Offre':id_Offre,
       'PourPoste':PourPoste,
       'Raison_recrut':Raison_recrut,
       'Specialite':Specialite,
@@ -128,11 +123,7 @@ const EditFile=()=> {
   const handleNext = () => {
 
     if(activeStep==0){
-      if(dataGeneralRes){
-        PutDataGenerale(dataGeneralRes.id)
-      }else{
-        PostDataGenerale()  
-      }
+      PutDataGenerale(dataGeneralRes.id)
     }else{
       navigate('/ProfileSubmit/'+dataGeneralRes.id)
     }
@@ -143,6 +134,10 @@ const EditFile=()=> {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  useEffect(()=>{
+    getFile();
+  },[])
 
   return (
     <React.Fragment>

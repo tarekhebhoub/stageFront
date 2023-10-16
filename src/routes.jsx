@@ -34,7 +34,7 @@ const routes = [
     {path:'/ProfileSubmit/:id',name:'ProfileSubmit',element:ProfileSubmit},
     {path: '/ProfileDetail2/:id/:iduser', name: 'ProfileDetail', element: ProfileDetail },
     { path: '/EditProfile', name: 'EditProfile', element: EditProfile },
-    { path: '/EditFile', name: 'EditFile', element: EditFile },
+    { path: '/EditFile/:id', name: 'EditFile', element: EditFile },
 
 
 
