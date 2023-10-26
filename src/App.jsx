@@ -12,7 +12,7 @@ const Login = React.lazy(()=>import('./components/Auth/Login'))
 // const Page404 = React.lazy(() => import('./views/pages/page404/Page404'))
 // const Page500 = React.lazy(() => import('./views/pages/page500/Page500'))
 const App=()=> {
-    const url='http://127.0.0.1:8000/';
+    const url = process.env.REACT_APP_API_URL;
     const token = localStorage.getItem('token');
     let isAuthenticated=true;
      if(token==null || token=='null' ){
@@ -25,7 +25,7 @@ const App=()=> {
           'Authorization': `Token ${token}`,
         }
       }
-      axios.get(url+'/tryToken',config)
+      axios.get(url+'tryToken',config)
       .then((res)=>{
       })
       .catch((e)=>{

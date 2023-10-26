@@ -22,7 +22,9 @@ import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
 
 const EditProfile=()=>{
-  	const url='http://127.0.0.1:8000/'
+  	// const url='http://127.0.0.1:8000/'
+    const url = process.env.REACT_APP_API_URL;
+
   	const navigate = useNavigate();
   	const [selectedImage, setSelectedImage] = useState(null);
 	const [structure,setStrucutre]=useState([])

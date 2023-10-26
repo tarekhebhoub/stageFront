@@ -92,7 +92,9 @@ const DefaultLayout=()=> {
   const token = localStorage.getItem('token');
   
 
-  const api_url='http://127.0.0.1:8000/logout/'
+  // const api_url='http://127.0.0.1:8000/logout/'
+  const api_url = process.env.REACT_APP_API_URL;
+
   const handleLogout=()=>{
     console.log('ibrahim')
     const config = {
@@ -100,7 +102,7 @@ const DefaultLayout=()=> {
         "Authorization": `Token ${token}`
       }
     };
-    axios.post(api_url,null,config)
+    axios.post(api_url+'logout/',null,config)
     .then((res)=> {
   
       localStorage.setItem("token", null);

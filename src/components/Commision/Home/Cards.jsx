@@ -12,7 +12,9 @@ import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 const BasicCard=({Employee,Post,Raison,id,EmployeeNom,shortList})=> {
-  const url='http://127.0.0.1:8000/'
+  // const url='http://127.0.0.1:8000/'
+  const url = process.env.REACT_APP_API_URL;
+
   const navigate = useNavigate();
   const handleClick=()=>{
     navigate('/ProfileDetail/'+id+'/'+Employee)

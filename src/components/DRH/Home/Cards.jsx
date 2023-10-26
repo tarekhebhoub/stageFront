@@ -15,7 +15,8 @@ import DeleteValide from './DeleteValide'
 // import UpdateModel from './UpdateModel'
 
 const BasicCard=({Diraction,Departement,PostFilier,nbrPost,id,getOffers,file})=> {
-  const url='http://127.0.0.1:8000/'
+  // const url='http://127.0.0.1:8000/'
+  const url = process.env.REACT_APP_API_URL;
   const token=localStorage.getItem('token')
   const navigate = useNavigate();
   const [deleteModalOpen,setDeleteModalOpen]=useState(false)
@@ -28,7 +29,7 @@ const BasicCard=({Diraction,Departement,PostFilier,nbrPost,id,getOffers,file})=>
     setUpdateModalOpen(true)
   }
   const handleInfo=()=>{
-     window.open(url+'fichier/2/FichierB/'); 
+     window.open(url+'fichier/'+id+'/FichierB/'); 
   }
   const handleFichier=()=>{
     navigate('/FichierForm')

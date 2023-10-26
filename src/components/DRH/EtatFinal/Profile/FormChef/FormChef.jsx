@@ -11,7 +11,8 @@ const FormChef=({checked,setChecked,id})=>{
   const token=localStorage.getItem('token')
   console.log('________________________________________________')
   console.log('tarek')
-  const url='http://127.0.0.1:8000/'
+  const url = process.env.REACT_APP_API_URL;
+  // const url='http://127.0.0.1:8000/'
   const [file,setFile]=useState('')
     
   const [Reponse_DRH,setReponse_DRH]=useState(false)

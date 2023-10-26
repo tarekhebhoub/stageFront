@@ -14,7 +14,8 @@ const EtatFichier=({id})=>{
 	const [activeStep,setActiveStep]=useState(0)
 	const [errorStep,setErrorStep]=useState(null)
 
-	const url='http://127.0.0.1:8000/'
+	// const url='http://127.0.0.1:8000/'
+	const url = process.env.REACT_APP_API_URL;
   	const token=localStorage.getItem('token')
   	const handleStep=(file)=>{
 

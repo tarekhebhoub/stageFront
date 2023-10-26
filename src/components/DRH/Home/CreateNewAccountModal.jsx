@@ -26,7 +26,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const CreateNewAccountModal = ({ open, onClose, setData }) => {
   
-  const url='http://127.0.0.1:8000/'
+  // const url='http://127.0.0.1:8000/'
+  const url = process.env.REACT_APP_API_URL;
   const token=localStorage.getItem('token')
   const [structure,setStrucutre]=useState([])
   const [departement,setDepartement]=useState([])

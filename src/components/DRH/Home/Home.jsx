@@ -7,7 +7,8 @@ import Button from '@mui/material/Button';
 import CreateNewAccountModal from './CreateNewAccountModal';
 import axios from 'axios'
 const Home=()=>{
-  const url='http://127.0.0.1:8000/'
+  // const url='http://127.0.0.1:8000/'
+  const url = process.env.REACT_APP_API_URL;
   const [offers,setOffers]=useState([])
   const token=localStorage.getItem('token')
   console.log(token)

@@ -10,7 +10,9 @@ import axios from 'axios'
 const FormChef=({checked,setChecked,id})=>{
 
   const token=localStorage.getItem('token')
-  const url='http://127.0.0.1:8000/'
+  // const url='http://127.0.0.1:8000/'
+  const url = process.env.REACT_APP_API_URL;
+  
   const [file,setFile]=useState('')
   const getFile=()=>{
     const config = {

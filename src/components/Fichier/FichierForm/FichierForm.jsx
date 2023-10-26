@@ -43,7 +43,8 @@ const FichierForm=()=> {
 
 
 
-  const url='http://127.0.0.1:8000/';
+  // const url='http://127.0.0.1:8000/';
+  const url = process.env.REACT_APP_API_URL;
   const token=localStorage.getItem('token')
 
   const steps = ['Informations Generales', 'Parcours Professionnel'];

@@ -19,7 +19,8 @@ const Parcours=({id})=>{
   const token=localStorage.getItem('token')
 
   const [data,setData]=useState([])
-  const url='http://127.0.0.1:8000/'
+  // const url='http://127.0.0.1:8000/'
+  const url = process.env.REACT_APP_API_URL;
 
   const GetParcProf=()=>{
     const config = {

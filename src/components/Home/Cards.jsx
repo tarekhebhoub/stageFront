@@ -11,7 +11,9 @@ import { useNavigate } from 'react-router-dom';
 
 
 const BasicCard=({Diraction,Departement,PostFilier,nbrPost,offre,id})=> {
-  const url='http://127.0.0.1:8000/'
+  // const url='http://127.0.0.1:8000/'
+  const url = process.env.REACT_APP_API_URL;
+  
   const navigate = useNavigate();
   const handleClick=()=>{
     navigate('/Offre/'+id)

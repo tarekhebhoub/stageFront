@@ -51,7 +51,8 @@ const Login=()=> {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const url='http://127.0.0.1:8000/'
+    const url = process.env.REACT_APP_API_URL;
+    
     const data1={
       username: data.get('username'),
       password: data.get('password'),

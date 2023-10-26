@@ -6,7 +6,8 @@ import axios from 'axios'
 import Stack from '@mui/material/Stack';
 import SearchField from './SearchField'
 const Home=()=>{
-  const url='http://127.0.0.1:8000/'
+  const url = process.env.REACT_APP_API_URL;
+  // const url='http://127.0.0.1:8000/'
   const [files,setFiles]=useState([])
   const token=localStorage.getItem('token')
   const [data,setData]=useState([])

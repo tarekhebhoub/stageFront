@@ -7,7 +7,9 @@ import axios from 'axios'
 import Grid from '@mui/material/Grid';
 
 const Formation=({id})=>{
-  const url='http://127.0.0.1:8000/'
+  // const url='http://127.0.0.1:8000/'
+  const url = process.env.REACT_APP_API_URL;
+  
   const token=localStorage.getItem('token')
   const [file,setFile]=useState('')
   const getFile=()=>{

@@ -35,7 +35,10 @@ const useStyles = makeStyles({
 const ActionAreaCard=()=>{
   const navigate = useNavigate();
   const classes = useStyles();
-  const url='http://127.0.0.1:8000/'
+  // const url='http://127.0.0.1:8000/'
+  const url = process.env.REACT_APP_API_URL;
+  const url2=process.env.REACT_APP_API_URL2;
+  
   const token=localStorage.getItem('token')
   const [resume,setResume]=useState('')
   const getResume=()=>{
@@ -60,6 +63,7 @@ const ActionAreaCard=()=>{
   const handleClick=()=>{
     navigate('/EditProfile')
   }
+  console.log('tarek')
   return (
     <Card >
       
@@ -69,7 +73,7 @@ const ActionAreaCard=()=>{
             alt={resume.first_name+' '+resume.last_name}
             src={`http://127.0.0.1:8000${resume.Photo}`} />
             */}
-          <UserAvatar  size="200" name={resume.first_name+' '+resume.last_name}src={`http://127.0.0.1:8000${resume.Photo}`} className={classes.avatar} />
+          <UserAvatar  size="200" name={resume.first_name+' '+resume.last_name}src={url2+resume.Photo} className={classes.avatar} />
           <Typography gutterBottom variant="h5" component="div">
             {resume.first_name} {resume.first_name}
           </Typography>
