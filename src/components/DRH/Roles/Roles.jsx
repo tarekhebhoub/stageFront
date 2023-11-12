@@ -117,6 +117,7 @@ const Roles=()=>{
 	    if(newRow.is_commission==true){
 	    	newRow.is_superuser=false
 	  		newRow.is_departement=false
+	  		newRow.is_stricture=false
 	    	return `change ${oldRow.first_name} ${oldRow.last_name} to Chef Commission`;
 	  	}
 	  	if(newRow.is_commission==false){

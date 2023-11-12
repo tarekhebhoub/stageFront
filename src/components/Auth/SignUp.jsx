@@ -20,6 +20,7 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import axios from 'axios'
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
+// import {Typography} from '@mui/joy/Typography';
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme({
@@ -47,6 +48,7 @@ const SignUp=()=>{
   const [departementId,setDepartementId]=useState([])
   const [structureId,setStructureId]=useState([])
 
+  const [fileName,setfileName]=useState("Please put your pic")
   // const url=process.env.REACT_APP_URL
   // const url='http://127.0.0.1:8000/'
   const url = process.env.REACT_APP_API_URL;
@@ -139,6 +141,13 @@ const SignUp=()=>{
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
+
+    if (file) {
+      setfileName(file.name);
+    } else {
+      setfileName ("Please out your pic");
+    }
+
     setSelectedImage(file);
   };
 
@@ -161,10 +170,11 @@ const SignUp=()=>{
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form"  onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  // error
                   autoComplete="given-name"
                   name="first_name"
                   required
@@ -189,6 +199,7 @@ const SignUp=()=>{
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer components={['DateField']}>
                     <DateField 
+                      required
                       id='dateBirth'
                       label="Date de naissance" 
                       format="YYYY-MM-DD"
@@ -202,6 +213,7 @@ const SignUp=()=>{
               </Grid>
               <Grid item xs={12} >
                 <TextField
+                type={"number"}
                   required
                   id="phone"
                   name="Telephone"
@@ -236,6 +248,7 @@ const SignUp=()=>{
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DemoContainer components={['DateField']}>
                     <DateField 
+                      required
                       id='dateBirth'
                       label="Date de Recrutement" 
                       format="YYYY-MM-DD"
@@ -249,6 +262,7 @@ const SignUp=()=>{
               </Grid>
               <Grid item xs={12} sm={6}>
               <Autocomplete
+                required
                 disablePortal
                 id="Structure"
                 name="Structure"
@@ -263,6 +277,7 @@ const SignUp=()=>{
 
               <Grid item xs={12} sm={6}>
               <Autocomplete
+                required
                 disablePortal
                 id="Id_dep"
                 
@@ -301,6 +316,7 @@ const SignUp=()=>{
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  type ={"email"}
                   required
                   fullWidth
                   id="emailProf"
@@ -337,8 +353,15 @@ const SignUp=()=>{
                     required
                   />
                 </Button>
+                
+                {/*<Link variant="body2">{fileName}</Link>*/}
               </Grid>
             </Grid>
+
+            <Grid item xs={12}>
+              <Typography  level="h4" component="h1">{fileName}</Typography>
+            </Grid>
+
             <Button
               type="submit"
               fullWidth
