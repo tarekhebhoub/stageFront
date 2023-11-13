@@ -11,20 +11,25 @@ const DataGeneral=({PourPoste,SetRaPourPoste,Raison_recrut,SetRaison_recrut,Spec
       <Typography variant="h6" gutterBottom>
         Informations Generales/Formation
       </Typography>
+      <Typography variant="h6" gutterBottom>
+        Post :{PourPoste}
+      </Typography>
       <Grid container spacing={3}>
-        <Grid item xs={12} >
+      {/*  <Grid item xs={12} >
           <TextField
             required
             id="PourPoste"
             name="PourPoste"
-            label="Condidat pour le poste de:"
+            // label="Condidat pour le poste de:"
             fullWidth
             autoComplete="given-name"
             variant="standard"
             value={PourPoste}
+            // defaultValue={PourPoste}
+            disabled
             onChange={(e)=> SetRaPourPoste(e.target.value)}
           />
-        </Grid>
+        </Grid>*/}
         <Grid item xs={12} >
           <TextField
             required

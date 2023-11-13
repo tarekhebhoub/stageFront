@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -40,6 +40,7 @@ const FichierForm=()=> {
   const [Specialite,SetSpecialite]=useState('')
   const [formation_comp,Setformation_comp]=useState('')
   const [seminaire,Setseminaire]=useState('')
+  const [offre,setOffre]=useState(null)
 
 
 
@@ -53,7 +54,7 @@ const FichierForm=()=> {
     switch (step) {
       case 0:
         return <DataGeneral 
-          PourPoste={PourPoste} 
+          PourPoste={offre?.TitreOffre} 
           Raison_recrut={Raison_recrut} 
           Specialite={Specialite} 
           formation_comp={formation_comp} 
@@ -75,10 +76,27 @@ const FichierForm=()=> {
 
   const {id}=useParams()
   const id_offer=id
+
+  const getOffre=()=>{
+    const config = {
+      headers: {
+        'Authorization': `Token ${token}`,
+      }
+    }
+
+    axios.get(url+'OffreEmp/'+id_offer+'/',config)
+    .then((res)=>{
+      setOffre(res.data)
+    })
+    .catch((e)=>{
+      console.log(e)
+    })
+  }
+
   const PostDataGenerale=()=>{
     const dataGeneral={
       'id_Offre':id_offer,
-      'PourPoste':PourPoste,
+      // 'PourPoste':offre.TitreOffre,
       'Raison_recrut':Raison_recrut,
       'Specialite':Specialite,
       'formation_comp':formation_comp,
@@ -103,7 +121,7 @@ const FichierForm=()=> {
   const PutDataGenerale=(id)=>{
     const dataGeneral={
       'id_Offre':id_offer,
-      'PourPoste':PourPoste,
+      // 'PourPoste':PourPoste,
       'Raison_recrut':Raison_recrut,
       'Specialite':Specialite,
       'formation_comp':formation_comp,
@@ -144,6 +162,10 @@ const FichierForm=()=> {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  useEffect(()=>{
+    getOffre()
+  },[])
 
   return (
     <React.Fragment>
